@@ -43,14 +43,14 @@ mvn clean -Pnative native:compile -DskipTests
 Alternately, you may build a docker image with the command:
 
 ```bash
-mvn clean -Pnative package -DskipTests spring-boot:build-image
+mvn clean -Pnative -DskipTests spring-boot:build-image
 ```
 
-## Running
+## Invocation
 
-To run the function, run the following command:
+To run the function with parameters, for example to explicitly specify in/out destination, run the following command:
 
 ```bash
-./target/binfn
+./target/binfn --spring.cloud.stream.bindings.binFn-in-0.destination=strings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings
 ```
 
