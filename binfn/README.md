@@ -48,9 +48,45 @@ mvn clean -Pnative -DskipTests spring-boot:build-image
 
 ## Invocation
 
+<<<<<<< HEAD
 To run the function with parameters, for example to explicitly specify in/out destination, run the following command:
 
 ```bash
 ./target/binfn --spring.cloud.stream.bindings.binFn-in-0.destination=strings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings
+=======
+To run the function standalone, run the following command:
+
+```bash
+./target/binfn --spring.cloud.stream.bindings.binFn-in-0.destination=strings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings --spring.cloud.stream.kafka.binder.brokers=localhost:9092
+>>>>>>> 0db97c8 (polish)
 ```
+
+However, run with the Docker compose provided in `infra/docker-compose.yml`. 
+This will stand up a Kafka broker and a Zookeeper instance. Additionally, an HTTP 
+source is provided to send messages to the function and a websocket sink are provided to test the function.
+
+Once it's running, in a new terminal, listen to the output websocket:
+
+```bash
+websocat ws://localhost:9095/ws
+```
+
+Then, in another terminal, send a message to the function:
+
+```bash
+curl -X POST -H "Content-Type: text/plain" -d "Hello World" http://localhost:8091
+```
+
+Back to the websocat output, you should see ```1001000110010111011001101100110111110000010101111101111111001011011001100100```.
+
+
+## Links
+
+[Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream)
+
+[Spring Cloud Stream Kafka Binder](https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html)
+
+[Using the Tanzu Java Native Image Buildpack](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-java-native-image-java-native-image-buildpack.html)
+
+
 

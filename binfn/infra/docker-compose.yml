@@ -11,8 +11,8 @@ services:
     image: confluentinc/cp-kafka:7.3.0
     container_name: broker
     ports:
-    # To learn about configuring Kafka for access across networks see
-    # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
       - "9092:9092"
     depends_on:
       - zookeeper
@@ -29,31 +29,31 @@ services:
     image: springcloudstream/http-source-kafka:latest
     container_name: http_source
     ports:
-     - "9091:9091"
+      - "9091:9091"
     depends_on:
-     - broker
+      - broker
     environment:
       SERVER_PORT: 9091
       SPRING_KAFKA_BOOTSTRAP_SERVERS: 'broker:29092'
       SPRING_CLOUD_STREAM_BINDINGS_OUTPUT_DESTINATION: 'strings'
       HTTP_PATH-PATTERN: '/demo'
 
-  # binfn:
-  #   image: docker.io/library/binfn:0.0.1-SNAPSHOT
-  #   container_name: binfn
-  #   depends_on:
-  #    - http_source
-  #   environment:
-  #     SPRING_KAFKA_BOOTSTRAP_SERVERS: 'broker:29092'
+  binfn:
+    image: docker.io/library/binfn:0.0.1-SNAPSHOT
+    container_name: binfn
+    depends_on:
+      - http_source
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 'broker:29092'
 
   ws_sink:
     image: springcloudstream/websocket-sink-kafka:latest
     container_name: ws-sink
     ports:
-     - "9095:9095"
-     - "9096:9096"
+      - "9095:9095"
+      - "9096:9096"
     depends_on:
-     - broker, http_source
+      - broker, http_source
     environment:
       SERVER_PORT: 9096
       WEBSOCKET_CONSUMER_PORT: 9095
