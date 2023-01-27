@@ -1,0 +1,14 @@
+spring.cloud.stream:
+  function:
+    definition: binFn
+  bindings:
+    binFn-in-0.destination: strings
+    binFn-out-0.destination: binstrings
+  kafka:
+    streams.binder:
+      configuration:
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        application.id: binFn
+        bootstrap.servers: localhost:9092
+spring.application.name: binaryFunction
