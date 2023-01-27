@@ -48,17 +48,10 @@ mvn clean -Pnative -DskipTests spring-boot:build-image
 
 ## Invocation
 
-<<<<<<< HEAD
 To run the function with parameters, for example to explicitly specify in/out destination, run the following command:
 
 ```bash
 ./target/binfn --spring.cloud.stream.bindings.binFn-in-0.destination=strings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings
-=======
-To run the function standalone, run the following command:
-
-```bash
-./target/binfn --spring.cloud.stream.bindings.binFn-in-0.destination=strings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings --spring.cloud.stream.bindings.binFn-out-0.destination=binstrings --spring.cloud.stream.kafka.binder.brokers=localhost:9092
->>>>>>> 0db97c8 (polish)
 ```
 
 However, run with the Docker compose provided in `infra/docker-compose.yml`. 
